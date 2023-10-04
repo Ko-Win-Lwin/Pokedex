@@ -13,7 +13,7 @@
 
     <!-- pokemon details -->
     <div class="mt-5">
-      <p class="capitalize">Name: {{ name }} s</p> 
+      <p class="capitalize">Name: {{ name }}</p> 
       <div class="flex  justify-between items-center"> 
         <p>weight: {{ status.weight }} (Kg)</p>
         <p>height: {{ status.height }} (m)</p>
