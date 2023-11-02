@@ -23,18 +23,15 @@
   </div>
 </template>
 
-<script>
-import getPokemonStatus  from '../composition/getPokemonStatus'
+<script setup>
+import getPokemonStatus  from '../../composition/getPokemonStatus'
 
-export default {
-  props: ["name"],
+const props = defineProps(['name'])
 
-  setup(props) {
-    let { status, load } = getPokemonStatus(props.name)
-    load()
-    return { status }
-  }
-}
+let { status, load } = getPokemonStatus(props.name)
+load()
+console.log(props.searchPokemon)
+
 </script>
 
 <style>
