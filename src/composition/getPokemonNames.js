@@ -1,8 +1,5 @@
-import { ref } from "vue"
-
-
 let getPokemonNames = () => {
-    let names = ref([])
+    let names = []
 
     let load = async () => {
         try {
@@ -10,7 +7,8 @@ let getPokemonNames = () => {
             let data = await response.json()
             data.results.forEach(pokemon => {
                 // pokemon.name = pokemon.name.charAt(0).toUpperCase()+ pokemon.name.slice(1) //capatalized first name
-                names.value.push(pokemon.name)
+                
+                names.push(pokemon.name)
             });
             
         } catch (err) {
