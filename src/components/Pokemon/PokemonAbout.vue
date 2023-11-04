@@ -1,46 +1,38 @@
 <template>
-  <div class="text-sm flex flex-col gap-2 w-50">
-    <div class="flex items-center justify-between">
-      <p>Species</p>
-      <p>{{ name }}</p>
-    </div>
-                    
-    <div class="flex items-center justify-between">
-      <p>Weight</p>
-      <p>{{ status.weight }}</p>
-    </div>
-
-    <div class="flex items-center justify-between">
-      <p>Height</p>
-      <p>{{ status.height }}</p>
-    </div>
-
-    <div class="flex items-center justify-between">
-      <div v-for="ability in status.abilities" :key="ability">
-        <span>{{ ability }}</span>
-        
+  <div class="text-sm flex justify-between">
+      <div class="flex flex-col gap-5">
+        <p>Species</p>
+        <p>Weight</p>
+        <p>Height</p>
+        <p>Ability</p>
+        <p>Types</p>
       </div>
-    </div>
 
-    <div class="flex items-center justify-between">
-      <p>Types</p>
-      <div v-for="pokemonType in status.types" :key="pokemonType"> 
-        <span> {{ pokemonType }}</span>
+      <div class="w-[60%]">
+         <p class="mb-5">{{ name }}</p>
+         <p class="mb-5">{{ stats.weight }} (kg)</p>
+         <p class="mb-5">{{ stats.height }} (m)</p>
+
+         <div v-for="ability in stats.abilities" :key="ability" class="inline-flex flex-col mr-5 mb-5">
+            <p>{{ ability }}</p>
+         </div>
+
+         <div v-for="pokemonType in stats.types" :key="pokemonType" class="inline-flex flex-col mr-5"> 
+           <p>{{ pokemonType }}</p>
+         </div>
       </div>
-    </div>
   </div>
+
 </template>
 
-<script>
-import getPokemonStatus from '../../composition/getPokemonStatus'
-export default {
-  props: ['name'],
-  setup(props) {
-    let { status, load } = getPokemonStatus(props.name)
-    load()
-    return { load, status }
-  }
-}
+<script setup>
+import getPokemonStats from '../../composition/getPokemonStats'
+
+const props = defineProps(['name'])
+
+let { stats, load } = getPokemonStats(props.name)
+load()
+
 </script>
 
 <style>

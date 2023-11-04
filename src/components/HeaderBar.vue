@@ -1,7 +1,9 @@
 <template>
     <nav class="flex items-center justify-between  px-4 py-2 border-b border-white border-opacity-10">
         <div class="rounded-full border border-slate-700 p-1.5 w-9 h-9 cursor-pointer">
-            <img src="../assets/images/pokeball.png" alt="" class="">
+            <router-link :to="{name : 'home'}">
+                <img src="../assets/images/pokeball.png" alt="" class="pokemon__ball">
+            </router-link>
         </div>
 
         <div class="flex items-center gap-5 ">
@@ -19,5 +21,20 @@ export default {
 </script>
 
 <style>
+.pokemon__ball:hover {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
 
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
 </style>

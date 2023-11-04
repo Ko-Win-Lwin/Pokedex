@@ -6,9 +6,10 @@
     <!-- image of pokemon -->
     <div class="px-3 mt-3">
         <div class="w-full py-2 border border-white border-opacity-50 bg-zinc-700 bg-opacity-30 grid place-items-center">
+            <p class="ml-auto mr-5 mt-3 text-4xl cursor-pointer" @click="bookmark">🔖</p>
             <!-- pokemon image -->
             <div class="w-[50%] h-[50%] mx-auto mt-5">
-                <img :src="status.sprite" alt="" class="w-full h-full">
+                <img :src="stats.sprite" alt="" class="w-full h-full">
             </div>  
         </div>
     </div>
@@ -16,22 +17,22 @@
     <!-- detail of pokemon -->
     <div class="px-3 mt-5 mb-5">
         <div class="w-full border border-white border-opacity-10 px-2 py-3">
-            <div class="flex items-center gap-5 pb-2 border-b mb-2">
-                <button @click="details('isAboutBtn')">About</button>
-                <button @click="details('isStatusBtn')">Basic Status</button>
-                <button @click="details('isMoveBtn')">Moves</button>
+            <div class="flex items-center justify-between pb-2 border-b mb-2">
+                <button @click="details('isAboutBtn')" :class="{ 'active': isAboutBtn }" class="font-bold px-7 py-2">About</button>
+                <button @click="details('isStatsBtn')" :class="{ 'active': isStatsBtn }" class="font-bold px-7 py-2">Basic Stat</button>
+                <button @click="details('isMoveBtn')" :class="{ 'active': isMoveBtn }" class="font-bold px-7 py-2">Moves</button>
             </div>
 
-            <div v-if="true">
+            <div v-if="isAboutBtn">
                 <PokemonAbout :name="name"></PokemonAbout>
             </div>
 
-            <div v-if="false">
-                <PokemonStatus></PokemonStatus>
+            <div v-if="isMoveBtn">
+                <PokemonStats :name="name"></PokemonStats>
             </div>
 
-            <div v-if="false">
-                <PokemonMoves></PokemonMoves>
+            <div v-if="isStatsBtn" >
+                <PokemonMoves :name="name"></PokemonMoves>
             </div>
             
         </div>
@@ -41,30 +42,41 @@
     
 </template>
 
-<script>
+<script setup>
 import PokemonMoves from '../components/Pokemon/PokemonMoves.vue'
-import PokemonStatus from '../components/Pokemon/PokemonStatus.vue'
+import PokemonStats from '../components/Pokemon/PokemonStats.vue'
 import PokemonAbout from '../components/Pokemon/PokemonAbout.vue'
-import { ref } from 'vue'
-import getPokemonStatus from '../composition/getPokemonStatus'
-export default {
-  components: {
-    PokemonMoves,
-    PokemonStatus, PokemonAbout },
-    props: ['name'],
+import getPokemonStats from '../composition/getPokemonStats'
+import { onMounted, ref } from 'vue'
 
-    setup(props) {
-        let isAboutBtn = ref(false)
-        let isStatusBtn = ref(false)
-        let isMoveBtn = ref(false)
-        let { status, load } = getPokemonStatus(props.name)
-        load()
-        return { status, isAboutBtn, isMoveBtn, isStatusBtn }
-    }
+const props = defineProps(['name'])
 
+
+
+let isAboutBtn = ref(true)
+let isStatsBtn = ref(false)
+let isMoveBtn = ref(false)
+let { stats, load } = getPokemonStats(props.name)
+
+const details = (btn) => {
+    btn === "isAboutBtn" ? isAboutBtn.value = true : isAboutBtn.value = false;
+    btn === "isStatsBtn" ? isStatsBtn.value = true : isStatsBtn.value = false;
+    btn === "isMoveBtn" ? isMoveBtn.value = true : isMoveBtn.value = false;
 }
+
+onMounted( async () => {
+    await load()
+})
+
+const bookmark = () => {
+    console.log("saved")
+}
+
 </script>
 
 <style>
+.active {
+    background-color: dimgrey;
+}
 
 </style>
