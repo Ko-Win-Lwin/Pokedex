@@ -18,9 +18,9 @@
     <div class="px-3 mt-5 mb-5">
         <div class="w-full border border-white border-opacity-10 px-2 py-3">
             <div class="flex items-center justify-between pb-2 border-b mb-2">
-                <button @click="details('isAboutBtn')" :class="{ 'active': isAboutBtn }" class="font-bold px-7 py-2">About</button>
-                <button @click="details('isStatsBtn')" :class="{ 'active': isStatsBtn }" class="font-bold px-7 py-2">Basic Stat</button>
-                <button @click="details('isMoveBtn')" :class="{ 'active': isMoveBtn }" class="font-bold px-7 py-2">Moves</button>
+                <button @click="details('isAboutBtn')" :class="{ 'active': isAboutBtn }" class="font-bold px-5 py-2">About</button>
+                <button @click="details('isStatsBtn')" :class="{ 'active': isStatsBtn }" class="font-bold px-5 py-2">Basic Stat</button>
+                <button @click="details('isMoveBtn')" :class="{ 'active': isMoveBtn }" class="font-bold px-5 py-2">Moves</button>
             </div>
 
             <div v-if="isAboutBtn">
